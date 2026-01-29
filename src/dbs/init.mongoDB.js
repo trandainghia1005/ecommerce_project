@@ -1,8 +1,13 @@
 "use strict";
 // import thư viện
 const mongoose = require("mongoose");
+const {
+  db: { host, port, name },
+} = require("../configs/config.mongoDB");
 //lưu địa chỉ db
-const connectString = `mongodb://localhost:27017/ecommerce_project`;
+const connectString = `mongodb://${host}:${port}/${name}`;
+console.log(connectString);
+
 // Singleton Pattern
 const { countConnect } = require("../helpers/check.connect");
 class Database {
