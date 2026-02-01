@@ -4,22 +4,27 @@ require("dotenv").config();
 const { default: helmet } = require("helmet");
 const compression = require("compression");
 const app = express();
-
-app.use(morgan("dev"));
-app.use(helmet());
-app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(morgan("dev"));
+// app.use(helmet());
+// app.use(compression());
+// Init DB
 require("./dbs/init.mongoDB");
-const process = require("process");
-// const { checkOverLoad } = require("./helpers/check.connect");
-// checkOverLoad();
+// Trước khi require routes
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
-// console.log("Process", process.env);
-app.use("/", (req, res, next) => {
-  const strCom = "hello wsl";
-  return res.status(200).json({
-    message: "Hello WSL ",
-    // metadata: strCom.repeat(10000),
-  });
+// Init routes
+app.use("", require("./routes"));
+
+// Handling errors
+app.use((req, res, next) => {
+  const error = new Error("Not Found");
+  error.status = 404;
+  next(error);
 });
 
 module.exports = app;

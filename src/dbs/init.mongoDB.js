@@ -6,7 +6,7 @@ const {
 } = require("../configs/config.mongoDB");
 //lưu địa chỉ db
 const connectString = `mongodb://${host}:${port}/${name}`;
-console.log(connectString);
+// console.log(connectString);
 
 // Singleton Pattern
 const { countConnect } = require("../helpers/check.connect");

@@ -59,6 +59,6 @@ const product = {
 };
 const config = { dev, product };
 const env = process.env.NODE_ENV || "dev";
-console.log("configenv", config[env]);
+// console.log("configenv", config[env]);
 
 module.exports = config[env];
